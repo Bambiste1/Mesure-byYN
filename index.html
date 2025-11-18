@@ -3,80 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesure-by-YN</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Mesure-by-YN - Connexion</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #fdfaf6;
-      color: #3e2f1c;
+      background: #fdfaf6;
       margin: 0;
       padding: 0;
       text-align: center;
+      color: #3e2f1c;
     }
     header {
-      background-color: #3e2f1c;
+      background: linear-gradient(90deg,#8B4513,#FFA500,#228B22);
       color: white;
       padding: 20px;
+    }
+    header img {
+      width: 80px;
+      margin-bottom: 10px;
     }
     h1 {
       margin: 0;
       font-size: 2em;
     }
-    p {
-      margin: 15px auto;
-      max-width: 600px;
-      line-height: 1.5;
+    p.slogan {
+      margin: 5px 0 15px;
+      font-style: italic;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    .demo {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
       margin: 20px auto;
-      max-width: 400px;
     }
-    ul li {
-      background: #e5f2e0;
-      margin: 8px 0;
+    .demo img {
+      width: 120px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .connexion {
+      margin: 30px auto;
+      max-width: 300px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .connexion input {
+      width: 90%;
       padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
       border-radius: 6px;
     }
-    a.button {
-      display: inline-block;
-      margin: 20px;
-      padding: 12px 20px;
-      background: #f28c28;
+    .connexion button {
+      width: 95%;
+      padding: 12px;
+      background: #FFA500;
       color: white;
+      border: none;
       border-radius: 8px;
-      text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .connexion button:hover {
+      transform: scale(1.05);
+      background: #228B22;
+    }
+    .whatsapp {
+      margin-top: 40px; /* distance entre WhatsApp et le formulaire */
+    }
+    .whatsapp a {
+      color: #25D366;
+      font-weight: bold;
+      text-decoration: none;
     }
     footer {
       background: #3e2f1c;
       color: white;
       padding: 10px;
-      margin-top: 30px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
   <header>
+    <img src="icon.png" alt="Logo Mesure-by-YN">
     <h1>Mesure-by-YN</h1>
-    <p>L’outil digital simple et efficace pour les couturiers du Sénégal</p>
+    <p class="slogan">L’outil digital des couturiers modernes</p>
   </header>
 
-  <main>
-    <p>Mesure-by-YN est une application conçue pour faciliter le travail des couturiers. 
-    Elle permet d’enregistrer les clients, leurs mesures, et de retrouver toutes les fiches facilement, même hors ligne.</p>
+  <!-- Galerie démonstrative -->
+  <div class="demo">
+    <img src="capture1.png" alt="Fiche client">
+    <img src="capture2.png" alt="Mesures">
+    <img src="capture3.png" alt="Historique">
+  </div>
 
-    <p>Pour obtenir l’accès complet, contactez-nous sur WhatsApp :</p>
-    <a href="https://wa.me/221770916016" style="color:#25D366;">📞 WhatsApp</a>
-  </main>
-<!-- Formulaire de connexion -->
-<form id="loginForm">
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="password" placeholder="Mot de passe" required>
-  <button type="submit">Connexion</button>
-</form>
+  <!-- Formulaire de connexion -->
+  <div class="connexion">
+    <p>🔐 Connectez-vous pour accéder à vos fiches clients</p>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <button type="submit">Connexion</button>
+    </form>
+  </div>
+
+  <!-- Contact WhatsApp -->
+  <div class="whatsapp">
+    <p>Besoin d’aide ou pour obtenir un accès ?</p>
+    <a href="https://wa.me/221771234567">📞 Contactez-nous sur WhatsApp</a>
+  </div>
 
 <!-- Firebase -->
 <script type="module">

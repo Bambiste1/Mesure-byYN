@@ -1,288 +1,87 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <title>CoPro Couture — Mesures</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesure-by-YN</title>
+  <link rel="manifest" href="manifest.json">
   <style>
-    :root { --bg:#f7f7f7; --card:#fff; --accent:#4a90e2; }
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI"; background:var(--bg); color:#111; }
-    .container { padding: 1rem; max-width: 700px; margin: auto; }
-    .card { background:var(--card); border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,.08); padding:20px; margin-bottom:18px; }
-    h1,h2{ margin-top:0; }
-    label{ display:block; font-size:.9rem; margin:10px 0 6px; }
-    input, textarea, select {
-      width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;
-      font-size:1rem; background:#fff;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfaf6;
+      color: #3e2f1c;
+      margin: 0;
+      padding: 0;
+      text-align: center;
     }
-    button {
-      padding:12px 18px; border:none; border-radius:8px;
-      background:var(--accent); color:white; font-weight:600;
-      margin-top:12px; width:100%;
+    header {
+      background-color: #3e2f1c;
+      color: white;
+      padding: 20px;
     }
-    nav button { background:#ccc; color:#111; font-weight:500; width:auto; }
-    .row{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:12px; }
-    .col{ flex:1; min-width:150px; }
-    .list{ display:flex; flex-direction:column; gap:12px; margin-top:10px; }
-    .item{ padding:12px; border:1px solid #e2e2e2; border-radius:10px; background:#fff; cursor:pointer; }
-    .badge{ background:#eaf3ff; border-radius:999px; padding:3px 10px; font-size:.8rem; color:#1a5bbf; }
-    .backBtn{ background:#ccc; color:#111; }
-    .measureBox{ border:1px solid #eee; border-radius:8px; padding:10px; margin:6px 0; background:#fafafa; }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    p {
+      margin: 15px auto;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 400px;
+    }
+    ul li {
+      background: #e5f2e0;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+    a.button {
+      display: inline-block;
+      margin: 20px;
+      padding: 12px 20px;
+      background: #f28c28;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer {
+      background: #3e2f1c;
+      color: white;
+      padding: 10px;
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>CoPro Couture — Mesures</h1>
+  <header>
+    <h1>Mesure-by-YN</h1>
+    <p>L’outil digital simple et efficace pour les couturiers du Sénégal</p>
+  </header>
 
-    <!-- Navigation -->
-    <nav style="display:flex; gap:10px; margin:20px 0;">
-      <button type="button" onclick="showSection('nouveauClientCard')">👤 Nouveau client</button>
-      <button type="button" onclick="showSection('nouvelleMesureCard')">📏 Nouvelle mesure</button>
-      <button type="button" onclick="showSection('listView')">📋 Liste clients</button>
-    </nav>
+  <main>
+    <p>Mesure-by-YN est une application conçue pour faciliter le travail des couturiers. 
+    Elle permet d’enregistrer les clients, leurs mesures, et de retrouver toutes les fiches facilement, même hors ligne.</p>
 
-    <!-- Nouveau Client -->
-    <div class="card" id="nouveauClientCard">
-      <h2>Nouveau client</h2>
-      <div class="row">
-        <div class="col"><label>Prénom</label><input id="prenom" placeholder="Prénom"/></div>
-        <div class="col"><label>Nom</label><input id="nom" placeholder="Nom"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Téléphone</label><input id="tel" placeholder="Téléphone"/></div>
-        <div class="col"><label>Email</label><input id="email" placeholder="Email (facultatif)"/></div>
-      </div>
-      <div><label>Notes</label><textarea id="notes" placeholder="Notes (préférences, etc.)"></textarea></div>
-      <button type="button" onclick="addClient()">Ajouter le client</button>
-    </div>
+    <ul>
+      <li>📋 Fiches clients et mesures</li>
+      <li>📱 Installable sur téléphone Android</li>
+      <li>🌍 Fonctionne hors ligne</li>
+      <li>🔐 Accès réservé aux couturiers</li>
+    </ul>
 
-    <!-- Nouvelle Mesure -->
-    <div class="card" id="nouvelleMesureCard" style="display:none;">
-      <h2>Nouvelle mesure</h2>
-      <div class="row">
-        <div class="col">
-          <label>Client</label>
-          <select id="clientSelect"></select>
-        </div>
-        <div class="col">
-          <label>Type de vêtement</label>
-          <input id="typeVetement" placeholder="Ex: chemise, robe"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Date</label><input id="dateMesure" type="date"/></div>
-      </div>
+    <a href="https://tonpseudo.github.io/copro-couture/" class="button">📲 Tester l’application</a>
+    <p>Pour obtenir l’accès complet, contactez-nous sur WhatsApp :</p>
+    <a href="https://wa.me/221771234567" style="color:#25D366;">📞 WhatsApp</a>
+  </main>
 
-      <h3>Mesures</h3>
-      <div class="row">
-        <div class="col"><label>Poitrine (cm)</label><input id="poitrine" type="number" placeholder="90"/></div>
-        <div class="col"><label>Taille (cm)</label><input id="taille" type="number" placeholder="72"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Hanche (cm)</label><input id="hanche" type="number" placeholder="98"/></div>
-        <div class="col"><label>Épaule (cm)</label><input id="epaule" type="number" placeholder="40"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Manche (cm)</label><input id="manche" type="number" placeholder="58"/></div>
-        <div class="col"><label>Longueur (cm)</label><input id="longueur" type="number" placeholder="110"/></div>
-      </div>
-
-      <button type="button" onclick="addMeasure()">Ajouter la mesure</button>
-    </div>
-
-    <!-- Liste Clients -->
-    <div class="card" id="listView" style="display:none;">
-      <h2>Liste des clients</h2>
-      <input id="search" placeholder="Rechercher par nom…" oninput="renderClients()"/>
-      <div id="clientsList" class="list"></div>
-    </div>
-
-    <!-- Détails Client -->
-    <div class="card" id="detailView" style="display:none;">
-      <button class="backBtn" type="button" onclick="backToList()">⬅️ Retour à la liste</button>
-      <div id="detailContent"></div>
-    </div>
-  </div>
-
-  <script>
-    // --- Données & utilitaires ---
-    const DB_KEY = "copro_couture_v5";
-    let data = { clients: [], mesures: [] };
-
-    function uuid(){ return 'c'+Math.random().toString(36).slice(2,9); }
-
-    function safeJSONParse(str){
-      try { return JSON.parse(str); } catch(e){ console.warn('JSON invalide, reset', e); return null; }
-    }
-
-    function save(){
-      try { localStorage.setItem(DB_KEY, JSON.stringify(data)); }
-      catch(e){ alert("Sauvegarde impossible: " + e.message); }
-    }
-
-    function load(){
-      const raw = localStorage.getItem(DB_KEY);
-      const parsed = raw ? safeJSONParse(raw) : null;
-      if(parsed) data = parsed;
-      renderClients();
-      populateClientSelect();
-    }
-
-    // --- Navigation des sections ---
-    function showSection(id){
-      const ids = ['nouveauClientCard','nouvelleMesureCard','listView','detailView'];
-      ids.forEach(s => {
-        const el = document.getElementById(s);
-        if(el) el.style.display = (s === id) ? 'block' : 'none';
-      });
-    }
-
-    // --- Actions ---
-    function addClient(){
-      const prenomEl = document.getElementById('prenom');
-      const nomEl = document.getElementById('nom');
-      const telEl = document.getElementById('tel');
-      const emailEl = document.getElementById('email');
-      const notesEl = document.getElementById('notes');
-
-      if(!prenomEl || !nomEl) { alert("Champs introuvables."); return; }
-
-      const prenom = prenomEl.value.trim();
-      const nom = nomEl.value.trim();
-      if(!prenom || !nom) { alert("Entrez prénom et nom."); return; }
-
-      const c = {
-        id: uuid(),
-        prenom,
-        nom,
-        telephone: (telEl?.value || "").trim(),
-        email: (emailEl?.value || "").trim(),
-        notes: (notesEl?.value || "").trim(),
-        statut: "nouveau"
-      };
-
-      data.clients.push(c);
-      save();
-
-      prenomEl.value = "";
-      nomEl.value = "";
-      if(telEl) telEl.value = "";
-      if(emailEl) emailEl.value = "";
-      if(notesEl) notesEl.value = "";
-
-      populateClientSelect();
-      renderClients();
-      showSection('listView'); // bascule vers la liste pour vérifier
-    }
-
-    function populateClientSelect(){
-      const sel = document.getElementById('clientSelect');
-      if(!sel) return;
-      sel.innerHTML = "";
-      data.clients.forEach(c=>{
-        const o = document.createElement('option');
-        o.value = c.id; o.textContent = c.prenom + " " + c.nom;
-        sel.appendChild(o);
-      });
-    }
-
-    function addMeasure(){
-      const sel = document.getElementById('clientSelect');
-      const typeVetementEl = document.getElementById('typeVetement');
-      const dateMesureEl = document.getElementById('dateMesure');
-
-      if(!sel || !typeVetementEl) { alert("Champs introuvables."); return; }
-
-      const clientId = sel.value;
-      const typeVetement = typeVetementEl.value.trim();
-      const dateMesure = dateMesureEl && dateMesureEl.value ? dateMesureEl.value : new Date().toISOString().slice(0,10);
-
-      if(!clientId) return alert("Sélectionnez un client.");
-      if(!typeVetement) return alert("Indiquez le type de vêtement.");
-
-      const mesures = {
-        poitrine: Number(document.getElementById('poitrine').value) || 0,
-        taille: Number(document.getElementById('taille').value) || 0,
-        hanche: Number(document.getElementById('hanche').value) || 0,
-        epaule: Number(document.getElementById('epaule').value) || 0,
-        manche: Number(document.getElementById('manche').value) || 0,
-        longueur: Number(document.getElementById('longueur').value) || 0
-      };
-
-      const m = { id: uuid(), clientId, date: dateMesure, typeVetement, mesures };
-      data.mesures.push(m);
-      save();
-
-      ['typeVetement','poitrine','taille','hanche','epaule','manche','longueur']
-        .forEach(id => { const el = document.getElementById(id); if(el) el.value = ""; });
-
-      renderClients();
-      showSection('listView');
-    }
-
-    function renderClients(){
-      const list = document.getElementById('clientsList');
-      const search = document.getElementById('search');
-
-      if(!list) return;
-      const q = (search?.value || "").toLowerCase();
-      list.innerHTML = "";
-
-      data.clients
-        .filter(c => (c.prenom + " " + c.nom).toLowerCase().includes(q))
-        .forEach(c=>{
-          const related = data.mesures.filter(m => m.clientId === c.id);
-          const el = document.createElement('div');
-          el.className = "item";
-          el.innerHTML = `
-            <strong>${c.prenom} ${c.nom}</strong><br/>
-            ${c.telephone ? "<span class='badge'>📞 " + c.telephone + "</span> " : ""}
-            ${c.email ? "<span class='badge'>✉️ " + c.email + "</span>" : ""}
-            <br/><em>${related.length} mesure(s)</em>
-          `;
-          el.onclick = ()=>showClientDetails(c.id);
-          list.appendChild(el);
-        });
-    }
-
-    function showClientDetails(id){
-      const client = data.clients.find(c=>c.id===id);
-      const mesures = data.mesures.filter(m=>m.clientId===id);
-      if(!client) return;
-
-      const listView = document.getElementById('listView');
-      const detailView = document.getElementById('detailView');
-      const div = document.getElementById('detailContent');
-
-      if(!listView || !detailView || !div) return;
-
-      listView.style.display='none';
-      detailView.style.display='block';
-      div.innerHTML = `
-        <h2>${client.prenom} ${client.nom}</h2>
-        ${client.telephone ? "<p><strong>Téléphone :</strong> "+client.telephone+"</p>":""}
-        ${client.email ? "<p><strong>Email :</strong> "+client.email+"</p>":""}
-        ${client.notes ? "<p><strong>Notes :</strong> "+client.notes+"</p>":""}
-        <h3>Mesures enregistrées</h3>
-        ${mesures.length===0 ? "<em>Aucune mesure enregistrée.</em>" :
-          mesures.map(m=>`
-            <div class="measureBox">
-              <strong>${m.typeVetement}</strong> — ${m.date}<br/>
-              ${Object.entries(m.mesures).map(([k,v])=>`${k}: ${v} cm`).join(", ")}
-            </div>
-          `).join("")}
-      `;
-    }
-
-    function backToList(){
-      showSection('listView');
-    }
-
-    // Init
-    window.addEventListener('DOMContentLoaded', ()=>{
-      load();
-      showSection('nouveauClientCard'); // section par défaut
-    });
-  </script>
+  <footer>
+    <p>&copy; 2025 Mesure-by-YN – Tous droits réservés</p>
+  </footer>
 </body>
 </html>

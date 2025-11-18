@@ -68,17 +68,45 @@
     <p>Mesure-by-YN est une application conçue pour faciliter le travail des couturiers. 
     Elle permet d’enregistrer les clients, leurs mesures, et de retrouver toutes les fiches facilement, même hors ligne.</p>
 
-    <ul>
-      <li>📋 Fiches clients et mesures</li>
-      <li>📱 Installable sur téléphone Android</li>
-      <li>🌍 Fonctionne hors ligne</li>
-      <li>🔐 Accès réservé aux couturiers</li>
-    </ul>
-
-    <a href="https://tonpseudo.github.io/copro-couture/" class="button">📲 Tester l’application</a>
     <p>Pour obtenir l’accès complet, contactez-nous sur WhatsApp :</p>
-    <a href="https://wa.me/221771234567" style="color:#25D366;">📞 WhatsApp</a>
+    <a href="https://wa.me/221770916016" style="color:#25D366;">📞 WhatsApp</a>
   </main>
+<!-- Formulaire de connexion -->
+<form id="loginForm">
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="password" placeholder="Mot de passe" required>
+  <button type="submit">Connexion</button>
+</form>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "TA_CLE_API",
+    authDomain: "mesure-by-yn.firebaseapp.com",
+    projectId: "mesure-by-yn",
+    storageBucket: "mesure-by-yn.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  document.getElementById("loginForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "mesure.html"; // accès à ton app
+      })
+      .catch(err => alert("Erreur de connexion : " + err.message));
+  });
+</script>
 
   <footer>
     <p>&copy; 2025 Mesure-by-YN – Tous droits réservés</p>

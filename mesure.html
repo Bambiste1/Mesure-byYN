@@ -8,290 +8,203 @@
   <link rel="apple-touch-icon" sizes="180x180" href="icon180.png">
   <link rel="apple-touch-icon" sizes="152x152" href="icon152.png">
   <link rel="apple-touch-icon" sizes="120x120" href="icon120.png">
+  <meta name="theme-color" content="#FFA500">
   <style>
-    :root { --bg:#f7f7f7; --card:#fff; --accent:#4a90e2; }
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI"; background:var(--bg); color:#111; }
-    .container { padding: 1rem; max-width: 700px; margin: auto; }
-    .card { background:var(--card); border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,.08); padding:20px; margin-bottom:18px; }
-    h1,h2{ margin-top:0; }
-    label{ display:block; font-size:.9rem; margin:10px 0 6px; }
-    input, textarea, select {
-      width:100%; padding:12px; border:1px solid #ddd; border-radius:8px;
-      font-size:1rem; background:#fff;
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdfaf6;
+      margin: 0;
+      padding: 0;
+      color: #3e2f1c;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(90deg,#8B4513,#FFA500,#228B22);
+      color: white;
+      padding: 20px;
+    }
+    header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    p.slogan {
+      margin: 5px 0 15px;
+      font-style: italic;
+    }
+    form {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    form h2 {
+      color: #8B4513;
+      margin-top: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
     button {
-      padding:12px 18px; border:none; border-radius:8px;
-      background:var(--accent); color:white; font-weight:600;
-      margin-top:12px; width:100%;
+      width: 95%;
+      padding: 12px;
+      background: #FFA500;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    nav button { background:#ccc; color:#111; font-weight:500; width:auto; }
-    .row{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:12px; }
-    .col{ flex:1; min-width:150px; }
-    .list{ display:flex; flex-direction:column; gap:12px; margin-top:10px; }
-    .item{ padding:12px; border:1px solid #e2e2e2; border-radius:10px; background:#fff; cursor:pointer; }
-    .badge{ background:#eaf3ff; border-radius:999px; padding:3px 10px; font-size:.8rem; color:#1a5bbf; }
-    .backBtn{ background:#ccc; color:#111; }
-    .measureBox{ border:1px solid #eee; border-radius:8px; padding:10px; margin:6px 0; background:#fafafa; }
+    button:hover {
+      transform: scale(1.05);
+      background: #228B22;
+    }
+    .client-list {
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    .client-list h3 {
+      color: #8B4513;
+    }
+    .client-item {
+      background: #fff;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .mesure-details {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    footer {
+      background: #3e2f1c;
+      color: white;
+      padding: 10px;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>CoPro Couture — Mesures</h1>
+  <header>
+    <img src="icon.png" alt="Logo Mesure-by-YN">
+    <h1>Mesure-by-YN</h1>
+    <p class="slogan">L’outil digital des couturiers modernes</p>
+  </header>
 
-    <!-- Navigation -->
-    <nav style="display:flex; gap:10px; margin:20px 0;">
-      <button type="button" onclick="showSection('nouveauClientCard')">👤 Nouveau client</button>
-      <button type="button" onclick="showSection('nouvelleMesureCard')">📏 Nouvelle mesure</button>
-      <button type="button" onclick="showSection('listView')">📋 Liste clients</button>
-    </nav>
+  <form id="mesureForm">
+    <h2>Informations client</h2>
+    <input type="text" name="nom" placeholder="Nom" required>
+    <input type="tel" name="tel" placeholder="Téléphone" required>
+    <input type="date" name="date">
 
-    <!-- Nouveau Client -->
-    <div class="card" id="nouveauClientCard">
-      <h2>Nouveau client</h2>
-      <div class="row">
-        <div class="col"><label>Prénom</label><input id="prenom" placeholder="Prénom"/></div>
-        <div class="col"><label>Nom</label><input id="nom" placeholder="Nom"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Téléphone</label><input id="tel" placeholder="Téléphone"/></div>
-        <div class="col"><label>Email</label><input id="email" placeholder="Email (facultatif)"/></div>
-      </div>
-      <div><label>Notes</label><textarea id="notes" placeholder="Notes (préférences, etc.)"></textarea></div>
-      <button type="button" onclick="addClient()">Ajouter le client</button>
-    </div>
+    <h2>Mesures</h2>
+    <input type="text" name="ep" placeholder="EP">
+    <input type="text" name="cou" placeholder="Tour de cou">
+    <input type="text" name="poitrine" placeholder="Poitrine">
+    <input type="text" name="taille" placeholder="Taille">
+    <input type="text" name="manches" placeholder="Manches">
+    <input type="text" name="t_manches" placeholder="T. Manches">
+    <input type="text" name="ceinture" placeholder="Ceinture">
+    <input type="text" name="hanches" placeholder="Hanches">
+    <input type="text" name="fesse" placeholder="Fesse">
+    <input type="text" name="blouse" placeholder="Blouse">
+    <input type="text" name="cuisses" placeholder="Cuisses">
+    <input type="text" name="genou" placeholder="Genou">
+    <input type="text" name="l_robe" placeholder="Longueur robe">
+    <input type="text" name="l_pantalon" placeholder="Longueur pantalon">
+    <input type="text" name="l_jupe" placeholder="Longueur jupe">
+    <input type="text" name="l_taille_basse" placeholder="Longueur taille basse">
+    <input type="text" name="l_robe_demi" placeholder="Longueur robe demi-long">
+    <input type="text" name="l_boubou" placeholder="Longueur boubou">
+    <input type="text" name="l_grand_boubou" placeholder="Longueur grand boubou">
+    <input type="text" name="bas" placeholder="Bas">
 
-    <!-- Nouvelle Mesure -->
-    <div class="card" id="nouvelleMesureCard" style="display:none;">
-      <h2>Nouvelle mesure</h2>
-      <div class="row">
-        <div class="col">
-          <label>Client</label>
-          <select id="clientSelect"></select>
-        </div>
-        <div class="col">
-          <label>Type de vêtement</label>
-          <input id="typeVetement" placeholder="Ex: chemise, robe"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Date</label><input id="dateMesure" type="date"/></div>
-      </div>
+    <h2>Paiement</h2>
+    <input type="number" name="avance" placeholder="Avance">
+    <input type="number" name="reste" placeholder="Reste">
+    <input type="number" name="solde" placeholder="Solde">
 
-      <h3>Mesures</h3>
-      <div class="row">
-        <div class="col"><label>Poitrine (cm)</label><input id="poitrine" type="number" placeholder="90"/></div>
-        <div class="col"><label>Taille (cm)</label><input id="taille" type="number" placeholder="72"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Hanche (cm)</label><input id="hanche" type="number" placeholder="98"/></div>
-        <div class="col"><label>Épaule (cm)</label><input id="epaule" type="number" placeholder="40"/></div>
-      </div>
-      <div class="row">
-        <div class="col"><label>Manche (cm)</label><input id="manche" type="number" placeholder="58"/></div>
-        <div class="col"><label>Longueur (cm)</label><input id="longueur" type="number" placeholder="110"/></div>
-      </div>
+    <button type="submit">Enregistrer</button>
+  </form>
+  <div class="client-list">
+  <h3>Clients enregistrés</h3>
+  <input type="text" id="searchInput" placeholder="Rechercher par nom ou téléphone" style="width:95%;padding:10px;margin-bottom:15px;border-radius:6px;border:1px solid #ccc;">
+  <div id="clientsContainer"></div>
+  <div class="client-list">
+  <h3>Clients enregistrés</h3>
+  <input type="text" id="searchInput" placeholder="Rechercher par nom ou téléphone" style="width:95%;padding:10px;margin-bottom:15px;border-radius:6px;border:1px solid #ccc;">
+  <div id="clientsContainer"></div>
+  <button onclick="exportJSON()">Exporter en JSON</button>
+  <button onclick="exportCSV()">Exporter en CSV</button>
+</div>
 
-      <button type="button" onclick="addMeasure()">Ajouter la mesure</button>
-    </div>
 
-    <!-- Liste Clients -->
-    <div class="card" id="listView" style="display:none;">
-      <h2>Liste des clients</h2>
-      <input id="search" placeholder="Rechercher par nom…" oninput="renderClients()"/>
-      <div id="clientsList" class="list"></div>
-    </div>
+  <div class="mesure-details" id="mesureDetails" style="display:none;"></div>
 
-    <!-- Détails Client -->
-    <div class="card" id="detailView" style="display:none;">
-      <button class="backBtn" type="button" onclick="backToList()">⬅️ Retour à la liste</button>
-      <div id="detailContent"></div>
-    </div>
-  </div>
+  <footer>
+    <p>&copy; 2025 Mesure-by-YN – Tous droits réservés</p>
+  </footer>
 
   <script>
-    // --- Données & utilitaires ---
-    const DB_KEY = "copro_couture_v5";
-    let data = { clients: [], mesures: [] };
+    const form = document.getElementById("mesureForm");
+    const clientsContainer = document.getElementById("clientsContainer");
+    const mesureDetails = document.getElementById("mesureDetails");
 
-    function uuid(){ return 'c'+Math.random().toString(36).slice(2,9); }
-
-    function safeJSONParse(str){
-      try { return JSON.parse(str); } catch(e){ console.warn('JSON invalide, reset', e); return null; }
-    }
-
-    function save(){
-      try { localStorage.setItem(DB_KEY, JSON.stringify(data)); }
-      catch(e){ alert("Sauvegarde impossible: " + e.message); }
-    }
-
-    function load(){
-      const raw = localStorage.getItem(DB_KEY);
-      const parsed = raw ? safeJSONParse(raw) : null;
-      if(parsed) data = parsed;
-      renderClients();
-      populateClientSelect();
-    }
-
-    // --- Navigation des sections ---
-    function showSection(id){
-      const ids = ['nouveauClientCard','nouvelleMesureCard','listView','detailView'];
-      ids.forEach(s => {
-        const el = document.getElementById(s);
-        if(el) el.style.display = (s === id) ? 'block' : 'none';
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = {};
+      Array.from(form.elements).forEach(el => {
+        if (el.name) data[el.name] = el.value;
       });
-    }
 
-    // --- Actions ---
-    function addClient(){
-      const prenomEl = document.getElementById('prenom');
-      const nomEl = document.getElementById('nom');
-      const telEl = document.getElementById('tel');
-      const emailEl = document.getElementById('email');
-      const notesEl = document.getElementById('notes');
-
-      if(!prenomEl || !nomEl) { alert("Champs introuvables."); return; }
-
-      const prenom = prenomEl.value.trim();
-      const nom = nomEl.value.trim();
-      if(!prenom || !nom) { alert("Entrez prénom et nom."); return; }
-
-      const c = {
-        id: uuid(),
-        prenom,
-        nom,
-        telephone: (telEl?.value || "").trim(),
-        email: (emailEl?.value || "").trim(),
-        notes: (notesEl?.value || "").trim(),
-        statut: "nouveau"
-      };
-
-      data.clients.push(c);
-      save();
-
-      prenomEl.value = "";
-      nomEl.value = "";
-      if(telEl) telEl.value = "";
-      if(emailEl) emailEl.value = "";
-      if(notesEl) notesEl.value = "";
-
-      populateClientSelect();
-      renderClients();
-      showSection('listView'); // bascule vers la liste pour vérifier
-    }
-
-    function populateClientSelect(){
-      const sel = document.getElementById('clientSelect');
-      if(!sel) return;
-      sel.innerHTML = "";
-      data.clients.forEach(c=>{
-        const o = document.createElement('option');
-        o.value = c.id; o.textContent = c.prenom + " " + c.nom;
-        sel.appendChild(o);
-      });
-    }
-
-    function addMeasure(){
-      const sel = document.getElementById('clientSelect');
-      const typeVetementEl = document.getElementById('typeVetement');
-      const dateMesureEl = document.getElementById('dateMesure');
-
-      if(!sel || !typeVetementEl) { alert("Champs introuvables."); return; }
-
-      const clientId = sel.value;
-      const typeVetement = typeVetementEl.value.trim();
-      const dateMesure = dateMesureEl && dateMesureEl.value ? dateMesureEl.value : new Date().toISOString().slice(0,10);
-
-      if(!clientId) return alert("Sélectionnez un client.");
-      if(!typeVetement) return alert("Indiquez le type de vêtement.");
-
-      const mesures = {
-        poitrine: Number(document.getElementById('poitrine').value) || 0,
-        taille: Number(document.getElementById('taille').value) || 0,
-        hanche: Number(document.getElementById('hanche').value) || 0,
-        epaule: Number(document.getElementById('epaule').value) || 0,
-        manche: Number(document.getElementById('manche').value) || 0,
-        longueur: Number(document.getElementById('longueur').value) || 0
-      };
-
-      const m = { id: uuid(), clientId, date: dateMesure, typeVetement, mesures };
-      data.mesures.push(m);
-      save();
-
-      ['typeVetement','poitrine','taille','hanche','epaule','manche','longueur']
-        .forEach(id => { const el = document.getElementById(id); if(el) el.value = ""; });
-
-      renderClients();
-      showSection('listView');
-    }
-
-    function renderClients(){
-      const list = document.getElementById('clientsList');
-      const search = document.getElementById('search');
-
-      if(!list) return;
-      const q = (search?.value || "").toLowerCase();
-      list.innerHTML = "";
-
-      data.clients
-        .filter(c => (c.prenom + " " + c.nom).toLowerCase().includes(q))
-        .forEach(c=>{
-          const related = data.mesures.filter(m => m.clientId === c.id);
-          const el = document.createElement('div');
-          el.className = "item";
-          el.innerHTML = `
-            <strong>${c.prenom} ${c.nom}</strong><br/>
-            ${c.telephone ? "<span class='badge'>📞 " + c.telephone + "</span> " : ""}
-            ${c.email ? "<span class='badge'>✉️ " + c.email + "</span>" : ""}
-            <br/><em>${related.length} mesure(s)</em>
-          `;
-          el.onclick = ()=>showClientDetails(c.id);
-          list.appendChild(el);
-        });
-    }
-
-    function showClientDetails(id){
-      const client = data.clients.find(c=>c.id===id);
-      const mesures = data.mesures.filter(m=>m.clientId===id);
-      if(!client) return;
-
-      const listView = document.getElementById('listView');
-      const detailView = document.getElementById('detailView');
-      const div = document.getElementById('detailContent');
-
-      if(!listView || !detailView || !div) return;
-
-      listView.style.display='none';
-      detailView.style.display='block';
-      div.innerHTML = `
-        <h2>${client.prenom} ${client.nom}</h2>
-        ${client.telephone ? "<p><strong>Téléphone :</strong> "+client.telephone+"</p>":""}
-        ${client.email ? "<p><strong>Email :</strong> "+client.email+"</p>":""}
-        ${client.notes ? "<p><strong>Notes :</strong> "+client.notes+"</p>":""}
-        <h3>Mesures enregistrées</h3>
-        ${mesures.length===0 ? "<em>Aucune mesure enregistrée.</em>" :
-          mesures.map(m=>`
-            <div class="measureBox">
-              <strong>${m.typeVetement}</strong> — ${m.date}<br/>
-              ${Object.entries(m.mesures).map(([k,v])=>`${k}: ${v} cm`).join(", ")}
-            </div>
-          `).join("")}
-      `;
-    }
-
-    function backToList(){
-      showSection('listView');
-    }
-
-    // Init
-    window.addEventListener('DOMContentLoaded', ()=>{
-      load();
-      showSection('nouveauClientCard'); // section par défaut
+      let clients = JSON.parse(localStorage.getItem("clients")) || [];
+      clients.push(data);
+      localStorage.setItem("clients", JSON.stringify(clients));
+      form.reset();
+      loadClients();
     });
-    if ('serviceWorker' in navigator) {
-     navigator.serviceWorker.register('sw.js')
-         .then(() => console.log("Service Worker enregistré"))
-        .catch(err => console.error("Erreur SW:", err));
+
+    function loadClients() {
+      clientsContainer.innerHTML = "";
+      let clients = JSON.parse(localStorage.getItem("clients")) || [];
+      clients.forEach((client, index) => {
+        const div = document.createElement("div");
+        div.className = "client-item";
+        div.textContent = `${client.nom} – ${client.tel}`;
+        div.onclick = () => showMesures(client);
+        clientsContainer.appendChild(div);
+      });
     }
+
+    function showMesures(client) {
+      mesureDetails.innerHTML = `<h3>Mesures de ${client.nom}</h3>`;
+      for (let key in client) {
+        if (key !== "nom" && key !== "tel" && key !== "date") {
+          mesureDetails.innerHTML += `<p><strong>${key}:</strong> ${client[key]}</p>`;
+        }
+      }
+      mesureDetails.style.display = "block";
+    }
+
+    loadClients();
   </script>
 </body>
 </html>

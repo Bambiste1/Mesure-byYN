@@ -114,19 +114,18 @@
     <p>Besoin d’aide ou pour obtenir un accès ?</p>
     <a href="https://wa.me/221770916016">📞 Contactez-nous sur WhatsApp</a>
   </div>
-
-<!-- Firebase -->
-<script type="module">
+  <!-- Firebase -->
+  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
   const firebaseConfig = {
-    apiKey: "TA_CLE_API",
+    apiKey: "AIzaSyAAwzbBYmY2Wktr-7R2mPWQVNRMbFavu4U",
     authDomain: "mesure-by-yn.firebaseapp.com",
     projectId: "mesure-by-yn",
-    storageBucket: "mesure-by-yn.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
+    storageBucket: "mesure-by-yn.firebasestorage.app",
+    messagingSenderId: "753867197752",
+    appId: "1:753867197752:web:41fb876ea29ad49c05c5cd"
   };
 
   const app = initializeApp(firebaseConfig);
@@ -143,7 +142,7 @@
       })
       .catch(err => alert("Erreur de connexion : " + err.message));
   });
-</script>
+  </script>
 
   <footer>
     <p>&copy; 2025 Mesure-by-YN – Tous droits réservés</p>

@@ -20,6 +20,7 @@ self.addEventListener('fetch', event => {
 });
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,3 +36,100 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+function showMesures(client, index) {
+  mesureDetails.innerHTML = `<h3>Mesures de ${client.nom}</h3>`;
+  for (let key in client) {
+    if (key !== "nom" && key !== "tel" && key !== "date") {
+      mesureDetails.innerHTML += `<p><strong>${key}:</strong> ${client[key]}</p>`;
+    }
+  }function editClient(index) {
+  let clients = JSON.parse(localStorage.getItem("clients")) || [];
+  let client = clients[index];
+  for (let key in client) {
+    if (form.elements[key]) {
+      form.elements[key].value = client[key];
+    }
+  }
+
+  // Supprimer l’ancien client pour le remplacer à l’enregistrement
+  clients.splice(index, 1);
+  localStorage.setItem("clients", JSON.stringify(clients));
+  mesureDetails.style.display = "none";
+  loadClients();
+}
+
+
+  // Boutons de modification et suppression
+  mesureDetails.innerHTML += `
+    <button onclick="editClient(${index})">Modifier</button>
+    <button onclick="deleteClient(${index})" style="background:#8B0000;margin-top:10px;">Supprimer</button>
+  `;
+  mesureDetails.style.display = "block";
+}
+function deleteClient(index) {
+  let clients = JSON.parse(localStorage.getItem("clients")) || [];
+  if (confirm("Supprimer ce client ?")) {
+    clients.splice(index, 1);
+    localStorage.setItem("clients", JSON.stringify(clients));
+    mesureDetails.style.display = "none";
+    loadClients();
+  }
+}
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", function() {
+  loadClients(this.value.toLowerCase());
+});
+
+function loadClients(filter="") {
+  clientsContainer.innerHTML = "";
+  let clients = JSON.parse(localStorage.getItem("clients")) || [];
+  clients.forEach((client, index) => {
+    // Vérifie si le nom ou le téléphone contient le texte recherché
+    if (
+      client.nom.toLowerCase().includes(filter) ||
+      client.tel.toLowerCase().includes(filter)
+    ) {
+      const div = document.createElement("div");
+      div.className = "client-item";
+      div.textContent = `${client.nom} – ${client.tel}`;
+      div.onclick = () => showMesures(client, index);
+      clientsContainer.appendChild(div);
+    }
+  });
+}
+function exportJSON() {
+  let clients = JSON.parse(localStorage.getItem("clients")) || [];
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(clients, null, 2));
+  const dlAnchor = document.createElement("a");
+  dlAnchor.setAttribute("href", dataStr);
+  dlAnchor.setAttribute("download", "clients.json");
+  dlAnchor.click();
+}
+
+function exportCSV() {
+  let clients = JSON.parse(localStorage.getItem("clients")) || [];
+  if (clients.length === 0) {
+    alert("Aucun client à exporter");
+    return;
+  }
+
+  // Récupère toutes les clés (colonnes)
+  const keys = Object.keys(clients[0]);
+  let csv = keys.join(",") + "\n";
+
+  // Ajoute les données
+  clients.forEach(client => {
+    csv += keys.map(k => `"${client[k] || ""}"`).join(",") + "\n";
+  });
+
+  const dataStr = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+  const dlAnchor = document.createElement("a");
+  dlAnchor.setAttribute("href", dataStr);
+  dlAnchor.setAttribute("download", "clients.csv");
+  dlAnchor.click();
+}
+
+
+

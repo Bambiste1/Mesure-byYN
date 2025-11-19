@@ -130,6 +130,13 @@ function exportCSV() {
   dlAnchor.setAttribute("download", "clients.csv");
   dlAnchor.click();
 }
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-
-
+createUserWithEmailAndPassword(auth, "arrame@gmail.com", "motdepasse123")
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log("Utilisateur créé :", user.email);
+  })
+  .catch((error) => {
+    console.error("Erreur de création :", error.message);
+  });

@@ -101,13 +101,14 @@
 
   <!-- Formulaire de connexion -->
   <div class="connexion">
-    <p>🔐 Connectez-vous pour accéder à vos fiches clients</p>
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Mot de passe" required>
-      <button type="submit">Connexion</button>
-    </form>
-  </div>
+  <p>🔐 Connectez-vous pour accéder à vos fiches clients</p>
+  <input type="tel" id="phone" placeholder="Numéro (+221...)" required>
+  <button onclick="sendCode()">📩 Envoyer le code SMS</button>
+  <input type="text" id="smsCode" placeholder="Code SMS reçu" style="display:none;">
+  <button id="validateBtn" onclick="validateCode()" style="display:none;">✔ Valider</button>
+  <div id="recaptcha-container"></div>
+</div>
+
 
   <!-- Contact WhatsApp -->
   <div class="whatsapp">
@@ -116,8 +117,12 @@
   </div>
   <!-- Firebase -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { 
+    getAuth, 
+    RecaptchaVerifier, 
+    signInWithPhoneNumber 
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAAwzbBYmY2Wktr-7R2mPWQVNRMbFavu4U",
@@ -131,18 +136,48 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  document.getElementById("loginForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        window.location.href = "mesure.html"; // accès à ton app
-      })
-      .catch(err => alert("Erreur de connexion : " + err.message));
+  // Recaptcha invisible
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
+    size:"normal"
   });
-  </script>
+
+  // ----- ENVOYER CODE SMS -----
+  window.sendCode = function () {
+    let phoneNumber = document.getElementById("phone").value;
+
+    if (!phoneNumber.startsWith("+")) {
+      alert("Format du numéro incorrect. Exemple : +221770000000");
+      return;
+    }
+
+    const appVerifier = window.recaptchaVerifier;
+
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        alert("📩 Code SMS envoyé !");
+        document.getElementById("smsCode").style.display = "block";
+        document.getElementById("validateBtn").style.display = "block";
+      })
+      .catch((error) => {
+        alert("Erreur : " + error.message);
+      });
+  };
+
+  // ----- VALIDER LE CODE SMS -----
+  window.validateCode = function () {
+    let code = document.getElementById("smsCode").value;
+
+    confirmationResult.confirm(code)
+      .then(() => {
+        alert("✔ Connexion réussie !");
+        window.location.href = "mesure.html";
+      })
+      .catch((error) => {
+        alert("Code incorrect : " + error.message);
+      });
+  };
+</script>
 
   <footer>
     <p>&copy; 2025 Mesure-by-YN – Tous droits réservés</p>

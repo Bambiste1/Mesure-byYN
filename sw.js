@@ -3,7 +3,6 @@ self.addEventListener('install', e => {
     caches.open('mesure-cache').then(cache => {
       return cache.addAll([
         '/',
-        '/index.html',
         '/mesure.html',
         '/manifest.json'
       ]);
@@ -37,6 +36,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
 function showMesures(client, index) {
   mesureDetails.innerHTML = `<h3>Mesures de ${client.nom}</h3>`;
   for (let key in client) {
